@@ -3,7 +3,7 @@ import { createContext, useContext, useEffect, useState, type ReactNode } from '
 import { initialReports, initialHistory, canDecide, decideReport, createReport, type Report, type HistoryEntry } from './data';
 // Démonstration : signalements conservés dans le navigateur (partagés entre citoyen et chef de service). À remplacer par l'API.
 type NewReport = { citizen: string; type: string; location: string; description: string; photo?: string | undefined; lat?: number | undefined; lng?: number | undefined; accuracy?: number | undefined };
-interface Store { reports: Report[]; history: HistoryEntry[]; decide: (id: string,status:'Validé'|'Rejeté',comment:string)=>void; addReport:(r:NewReport)=>Report; profile: {name:string;email:string}; saveProfile:(name:string,email:string)=>void; signedOut:boolean; setSignedOut:(value:boolean)=>void }
+interface Store { reports: Report[]; history: HistoryEntry[]; decide: (id: string,status:'Transmis'|'Rejeté',comment:string)=>void; addReport:(r:NewReport)=>Report; profile: {name:string;email:string}; saveProfile:(name:string,email:string)=>void; signedOut:boolean; setSignedOut:(value:boolean)=>void }
 // Keep one context instance across hot reloads so providers and consumers always match.
 const g=globalThis as unknown as {__rakuevServiceCtx?: React.Context<Store | null>};
 const Context=g.__rakuevServiceCtx ??= createContext<Store | null>(null);
@@ -15,7 +15,7 @@ useEffect(()=>{ setReports(load('eclaire.reports',initialReports)); setHistory(l
   window.addEventListener('storage',onStorage); return ()=>window.removeEventListener('storage',onStorage); },[]);
 useEffect(()=>{ if(ready) save('eclaire.reports',reports); },[reports,ready]);
 useEffect(()=>{ if(ready) save('eclaire.history',history); },[history,ready]);
-function decide(id:string,status:'Validé'|'Rejeté',comment:string) { const report=reports.find(r=>r.id===id); if (!report || !canDecide(report)) return; const date=new Date().toISOString(); setReports(prev=>prev.map(r=>r.id===id?decideReport(r,status,comment,date):r)); setHistory(prev=>[{id:`h-${Date.now()}`,reportId:id,action:status==='Validé'?'Signalement validé':'Signalement rejeté',comment,date},...prev]); }
+function decide(id:string,status:'Transmis'|'Rejeté',comment:string) { const report=reports.find(r=>r.id===id); if (!report || !canDecide(report)) return; const date=new Date().toISOString(); setReports(prev=>prev.map(r=>r.id===id?decideReport(r,status,comment,date):r)); setHistory(prev=>[{id:`h-${Date.now()}`,reportId:id,action:status==='Transmis'?'Signalement validé':'Signalement rejeté',comment,date},...prev]); }
 function addReport(input:NewReport) { const date=new Date().toISOString(); const r=createReport(reports,input,date); setReports(prev=>[r,...prev]); setHistory(prev=>[{id:`h-${Date.now()}`,reportId:r.id,action:'Signalement créé',comment:`Envoyé par ${r.citizen}.`,date},...prev]); return r; }
 return <Context.Provider value={{reports,history,decide,addReport,profile,saveProfile:(name,email)=>setProfile({name,email}),signedOut,setSignedOut}}>{children}</Context.Provider>;
 }

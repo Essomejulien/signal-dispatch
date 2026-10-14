@@ -20,7 +20,7 @@ export function reportPosition(r: Report): [number, number] {
 /** Statut d'un lampadaire lié à un signalement citoyen. */
 export function stateFromReport(r: Report): LampState {
   if (r.status === 'En cours') return 'intervention';
-  if (r.status === 'En attente' || r.status === 'Validé') return 'defectueux';
+  if (r.status === 'Nouveau' || r.status === 'Transmis') return 'defectueux';
   return 'fonctionnel';
 }
 
