@@ -14,3 +14,4 @@
 - Use ServiceShell for both citizen and internal workspaces with role-specific navigation, so menu placement and presentation remain consistent.
 - Keep brand and partner logos in the shared Brand and PartnerLogos components, with uploaded media referenced through asset pointers to maintain uniform presentation.
 - Define presentation tokens, field animations and responsive layout rules in src/styles.css, so all pages share one design system.
+- Report status transitions, technician ranking and intervention creation live as pure functions in src/features/service/data.ts; store actions in ServiceProvider log every step to history with author/recipient, so rules stay testable.
