@@ -7,6 +7,7 @@ export type Session = { kind: 'citoyen'; id: string; name: string } | { kind: 'i
 
 const SEED_INTERNES: CompteInterne[] = [
   { id: 'INT-0001', nom: 'Kouamé', prenom: 'Alain', email: 'alain.kouame@ville-douala.cm', telephone: '+237 690 00 00 01', role: 'chef_service', identifiant_pro: 'CS-001', statut: 'actif', mot_de_passe: 'demo1234' },
+  { id: 'INT-0002', nom: 'Ndjock', prenom: 'Bernard', email: 'bernard.ndjock@ville-douala.cm', telephone: '+237 690 00 00 02', role: 'chef_unite', identifiant_pro: 'CU-001', statut: 'actif', mot_de_passe: 'demo1234' },
 ];
 
 interface AuthStore {
@@ -34,7 +35,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
 
   useEffect(() => {
     setCitoyens(load('eclaire.citoyens', []));
-    setInternes(load('eclaire.internes', SEED_INTERNES));
+    setInternes(() => { const l = load<CompteInterne[]>('eclaire.internes', SEED_INTERNES); return [...l, ...SEED_INTERNES.filter((s) => !l.some((x) => x.email === s.email))]; });
     setSession(load('eclaire.session', null));
     setReady(true);
   }, []);

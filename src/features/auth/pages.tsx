@@ -102,7 +102,7 @@ export function LoginPage() {
     setLoading(false);
     if (!res.ok) return setErrors({ form: res.error });
     toast.success(`Bienvenue, ${res.session.name}`);
-    navigate({ to: res.session.kind === 'interne' ? '/tableau-de-bord' : '/signaler' });
+    navigate({ to: res.session.kind === 'interne' ? (res.session.role === 'chef_unite' ? '/unite' : '/tableau-de-bord') : '/signaler' });
   }
 
   return (
