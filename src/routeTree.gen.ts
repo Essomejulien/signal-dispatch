@@ -10,33 +10,193 @@
 
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as CarteSigRouteImport } from './routes/carte-sig'
+import { Route as ComptesInternesRouteImport } from './routes/comptes-internes'
+import { Route as ConnexionRouteImport } from './routes/connexion'
+import { Route as HistoriqueRouteImport } from './routes/historique'
+import { Route as InscriptionRouteImport } from './routes/inscription'
+import { Route as InterventionsRouteImport } from './routes/interventions'
+import { Route as MotDePasseOublieRouteImport } from './routes/mot-de-passe-oublie'
+import { Route as ProfilRouteImport } from './routes/profil'
+import { Route as SignalementsRouteImport } from './routes/signalements'
+import { Route as SignalerRouteImport } from './routes/signaler'
+import { Route as StatistiquesRouteImport } from './routes/statistiques'
+import { Route as TableauDeBordRouteImport } from './routes/tableau-de-bord'
 
 const IndexRoute = IndexRouteImport.update({
   id: '/',
   path: '/',
   getParentRoute: () => rootRouteImport,
 } as any)
+const CarteSigRoute = CarteSigRouteImport.update({
+  id: '/carte-sig',
+  path: '/carte-sig',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ComptesInternesRoute = ComptesInternesRouteImport.update({
+  id: '/comptes-internes',
+  path: '/comptes-internes',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ConnexionRoute = ConnexionRouteImport.update({
+  id: '/connexion',
+  path: '/connexion',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const HistoriqueRoute = HistoriqueRouteImport.update({
+  id: '/historique',
+  path: '/historique',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const InscriptionRoute = InscriptionRouteImport.update({
+  id: '/inscription',
+  path: '/inscription',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const InterventionsRoute = InterventionsRouteImport.update({
+  id: '/interventions',
+  path: '/interventions',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const MotDePasseOublieRoute = MotDePasseOublieRouteImport.update({
+  id: '/mot-de-passe-oublie',
+  path: '/mot-de-passe-oublie',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ProfilRoute = ProfilRouteImport.update({
+  id: '/profil',
+  path: '/profil',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const SignalementsRoute = SignalementsRouteImport.update({
+  id: '/signalements',
+  path: '/signalements',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const SignalerRoute = SignalerRouteImport.update({
+  id: '/signaler',
+  path: '/signaler',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const StatistiquesRoute = StatistiquesRouteImport.update({
+  id: '/statistiques',
+  path: '/statistiques',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const TableauDeBordRoute = TableauDeBordRouteImport.update({
+  id: '/tableau-de-bord',
+  path: '/tableau-de-bord',
+  getParentRoute: () => rootRouteImport,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
+  '/carte-sig': typeof CarteSigRoute
+  '/comptes-internes': typeof ComptesInternesRoute
+  '/connexion': typeof ConnexionRoute
+  '/historique': typeof HistoriqueRoute
+  '/inscription': typeof InscriptionRoute
+  '/interventions': typeof InterventionsRoute
+  '/mot-de-passe-oublie': typeof MotDePasseOublieRoute
+  '/profil': typeof ProfilRoute
+  '/signalements': typeof SignalementsRoute
+  '/signaler': typeof SignalerRoute
+  '/statistiques': typeof StatistiquesRoute
+  '/tableau-de-bord': typeof TableauDeBordRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
+  '/carte-sig': typeof CarteSigRoute
+  '/comptes-internes': typeof ComptesInternesRoute
+  '/connexion': typeof ConnexionRoute
+  '/historique': typeof HistoriqueRoute
+  '/inscription': typeof InscriptionRoute
+  '/interventions': typeof InterventionsRoute
+  '/mot-de-passe-oublie': typeof MotDePasseOublieRoute
+  '/profil': typeof ProfilRoute
+  '/signalements': typeof SignalementsRoute
+  '/signaler': typeof SignalerRoute
+  '/statistiques': typeof StatistiquesRoute
+  '/tableau-de-bord': typeof TableauDeBordRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
+  '/carte-sig': typeof CarteSigRoute
+  '/comptes-internes': typeof ComptesInternesRoute
+  '/connexion': typeof ConnexionRoute
+  '/historique': typeof HistoriqueRoute
+  '/inscription': typeof InscriptionRoute
+  '/interventions': typeof InterventionsRoute
+  '/mot-de-passe-oublie': typeof MotDePasseOublieRoute
+  '/profil': typeof ProfilRoute
+  '/signalements': typeof SignalementsRoute
+  '/signaler': typeof SignalerRoute
+  '/statistiques': typeof StatistiquesRoute
+  '/tableau-de-bord': typeof TableauDeBordRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/'
+  fullPaths:
+    | '/'
+    | '/carte-sig'
+    | '/comptes-internes'
+    | '/connexion'
+    | '/historique'
+    | '/inscription'
+    | '/interventions'
+    | '/mot-de-passe-oublie'
+    | '/profil'
+    | '/signalements'
+    | '/signaler'
+    | '/statistiques'
+    | '/tableau-de-bord'
   fileRoutesByTo: FileRoutesByTo
-  to: '/'
-  id: '__root__' | '/'
+  to:
+    | '/'
+    | '/carte-sig'
+    | '/comptes-internes'
+    | '/connexion'
+    | '/historique'
+    | '/inscription'
+    | '/interventions'
+    | '/mot-de-passe-oublie'
+    | '/profil'
+    | '/signalements'
+    | '/signaler'
+    | '/statistiques'
+    | '/tableau-de-bord'
+  id:
+    | '__root__'
+    | '/'
+    | '/carte-sig'
+    | '/comptes-internes'
+    | '/connexion'
+    | '/historique'
+    | '/inscription'
+    | '/interventions'
+    | '/mot-de-passe-oublie'
+    | '/profil'
+    | '/signalements'
+    | '/signaler'
+    | '/statistiques'
+    | '/tableau-de-bord'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
+  CarteSigRoute: typeof CarteSigRoute
+  ComptesInternesRoute: typeof ComptesInternesRoute
+  ConnexionRoute: typeof ConnexionRoute
+  HistoriqueRoute: typeof HistoriqueRoute
+  InscriptionRoute: typeof InscriptionRoute
+  InterventionsRoute: typeof InterventionsRoute
+  MotDePasseOublieRoute: typeof MotDePasseOublieRoute
+  ProfilRoute: typeof ProfilRoute
+  SignalementsRoute: typeof SignalementsRoute
+  SignalerRoute: typeof SignalerRoute
+  StatistiquesRoute: typeof StatistiquesRoute
+  TableauDeBordRoute: typeof TableauDeBordRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -48,11 +208,107 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof IndexRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/carte-sig': {
+      id: '/carte-sig'
+      path: '/carte-sig'
+      fullPath: '/carte-sig'
+      preLoaderRoute: typeof CarteSigRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/comptes-internes': {
+      id: '/comptes-internes'
+      path: '/comptes-internes'
+      fullPath: '/comptes-internes'
+      preLoaderRoute: typeof ComptesInternesRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/connexion': {
+      id: '/connexion'
+      path: '/connexion'
+      fullPath: '/connexion'
+      preLoaderRoute: typeof ConnexionRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/historique': {
+      id: '/historique'
+      path: '/historique'
+      fullPath: '/historique'
+      preLoaderRoute: typeof HistoriqueRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/inscription': {
+      id: '/inscription'
+      path: '/inscription'
+      fullPath: '/inscription'
+      preLoaderRoute: typeof InscriptionRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/interventions': {
+      id: '/interventions'
+      path: '/interventions'
+      fullPath: '/interventions'
+      preLoaderRoute: typeof InterventionsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/mot-de-passe-oublie': {
+      id: '/mot-de-passe-oublie'
+      path: '/mot-de-passe-oublie'
+      fullPath: '/mot-de-passe-oublie'
+      preLoaderRoute: typeof MotDePasseOublieRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/profil': {
+      id: '/profil'
+      path: '/profil'
+      fullPath: '/profil'
+      preLoaderRoute: typeof ProfilRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/signalements': {
+      id: '/signalements'
+      path: '/signalements'
+      fullPath: '/signalements'
+      preLoaderRoute: typeof SignalementsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/signaler': {
+      id: '/signaler'
+      path: '/signaler'
+      fullPath: '/signaler'
+      preLoaderRoute: typeof SignalerRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/statistiques': {
+      id: '/statistiques'
+      path: '/statistiques'
+      fullPath: '/statistiques'
+      preLoaderRoute: typeof StatistiquesRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/tableau-de-bord': {
+      id: '/tableau-de-bord'
+      path: '/tableau-de-bord'
+      fullPath: '/tableau-de-bord'
+      preLoaderRoute: typeof TableauDeBordRouteImport
+      parentRoute: typeof rootRouteImport
+    }
   }
 }
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
+  CarteSigRoute: CarteSigRoute,
+  ComptesInternesRoute: ComptesInternesRoute,
+  ConnexionRoute: ConnexionRoute,
+  HistoriqueRoute: HistoriqueRoute,
+  InscriptionRoute: InscriptionRoute,
+  InterventionsRoute: InterventionsRoute,
+  MotDePasseOublieRoute: MotDePasseOublieRoute,
+  ProfilRoute: ProfilRoute,
+  SignalementsRoute: SignalementsRoute,
+  SignalerRoute: SignalerRoute,
+  StatistiquesRoute: StatistiquesRoute,
+  TableauDeBordRoute: TableauDeBordRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
