@@ -14,3 +14,10 @@ describe('Signalement citoyen',()=>{
  it('assigns priority from fault type',()=>{expect(priorityFor('Câble endommagé')).toBe('Haute');expect(priorityFor('Lampadaire éteint')).toBe('Moyenne');expect(priorityFor('Autre')).toBe('Basse');});
  it('creates a pending report with next id and detected zone',()=>{const r=createReport(initialReports,{citizen:'Ada Bell',type:'Poteau endommagé',location:'Douala, Akwa',description:'x'},'2026-10-12T08:00:00');expect(r.id).toBe('SIG-2026-0149');expect(r.status).toBe('Nouveau');expect(r.zone).toBe('Akwa');expect(r.priority).toBe('Haute');});
 });
+import { canMove, createIntervention, rankTechnicians, migrateStatus, TECHNICIANS } from './data';
+describe('Transmission et chef d’unité',()=>{
+ it('follows Nouveau → Transmis → En cours → Résolu',()=>{expect(canMove('Nouveau','Transmis')).toBe(true);expect(canMove('Transmis','En cours')).toBe(true);expect(canMove('En cours','Résolu')).toBe(true);expect(canMove('Nouveau','Résolu')).toBe(false);expect(canMove('Transmis','Nouveau')).toBe(false);});
+ it('only creates interventions for transmitted reports',()=>{const t=TECHNICIANS[0]!;expect(createIntervention(reportAt(0),[],t,'x','2026-10-14')).toBeNull();const r={...reportAt(0),status:'Transmis' as const};const i=createIntervention(r,[],t,'Remplacer la lampe','2026-10-14T10:00:00');expect(i?.status).toBe('En cours');expect(i?.id).toBe('INT-2026-0001');});
+ it('ranks a matching specialty first',()=>{const r={...reportAt(4),type:'Poteau endommagé'};expect(rankTechnicians(r,[])[0]?.specialty).toBe('Poteaux et structures');});
+ it('maps old statuses',()=>{expect(migrateStatus('En attente')).toBe('Nouveau');expect(migrateStatus('Validé')).toBe('Transmis');});
+});

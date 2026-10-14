@@ -22,6 +22,10 @@ import { Route as SignalementsRouteImport } from './routes/signalements'
 import { Route as SignalerRouteImport } from './routes/signaler'
 import { Route as StatistiquesRouteImport } from './routes/statistiques'
 import { Route as TableauDeBordRouteImport } from './routes/tableau-de-bord'
+import { Route as UniteRouteImport } from './routes/unite'
+import { Route as UniteInterventionsRouteImport } from './routes/unite.interventions'
+import { Route as UniteSignalementsRouteImport } from './routes/unite.signalements'
+import { Route as UniteTechniciensRouteImport } from './routes/unite.techniciens'
 
 const IndexRoute = IndexRouteImport.update({
   id: '/',
@@ -88,6 +92,26 @@ const TableauDeBordRoute = TableauDeBordRouteImport.update({
   path: '/tableau-de-bord',
   getParentRoute: () => rootRouteImport,
 } as any)
+const UniteRoute = UniteRouteImport.update({
+  id: '/unite',
+  path: '/unite',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const UniteInterventionsRoute = UniteInterventionsRouteImport.update({
+  id: '/interventions',
+  path: '/interventions',
+  getParentRoute: () => UniteRoute,
+} as any)
+const UniteSignalementsRoute = UniteSignalementsRouteImport.update({
+  id: '/signalements',
+  path: '/signalements',
+  getParentRoute: () => UniteRoute,
+} as any)
+const UniteTechniciensRoute = UniteTechniciensRouteImport.update({
+  id: '/techniciens',
+  path: '/techniciens',
+  getParentRoute: () => UniteRoute,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
@@ -103,6 +127,10 @@ export interface FileRoutesByFullPath {
   '/signaler': typeof SignalerRoute
   '/statistiques': typeof StatistiquesRoute
   '/tableau-de-bord': typeof TableauDeBordRoute
+  '/unite': typeof UniteRouteWithChildren
+  '/unite/interventions': typeof UniteInterventionsRoute
+  '/unite/signalements': typeof UniteSignalementsRoute
+  '/unite/techniciens': typeof UniteTechniciensRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
@@ -118,6 +146,10 @@ export interface FileRoutesByTo {
   '/signaler': typeof SignalerRoute
   '/statistiques': typeof StatistiquesRoute
   '/tableau-de-bord': typeof TableauDeBordRoute
+  '/unite': typeof UniteRouteWithChildren
+  '/unite/interventions': typeof UniteInterventionsRoute
+  '/unite/signalements': typeof UniteSignalementsRoute
+  '/unite/techniciens': typeof UniteTechniciensRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
@@ -134,6 +166,10 @@ export interface FileRoutesById {
   '/signaler': typeof SignalerRoute
   '/statistiques': typeof StatistiquesRoute
   '/tableau-de-bord': typeof TableauDeBordRoute
+  '/unite': typeof UniteRouteWithChildren
+  '/unite/interventions': typeof UniteInterventionsRoute
+  '/unite/signalements': typeof UniteSignalementsRoute
+  '/unite/techniciens': typeof UniteTechniciensRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
@@ -151,6 +187,10 @@ export interface FileRouteTypes {
     | '/signaler'
     | '/statistiques'
     | '/tableau-de-bord'
+    | '/unite'
+    | '/unite/interventions'
+    | '/unite/signalements'
+    | '/unite/techniciens'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
@@ -166,6 +206,10 @@ export interface FileRouteTypes {
     | '/signaler'
     | '/statistiques'
     | '/tableau-de-bord'
+    | '/unite'
+    | '/unite/interventions'
+    | '/unite/signalements'
+    | '/unite/techniciens'
   id:
     | '__root__'
     | '/'
@@ -181,6 +225,10 @@ export interface FileRouteTypes {
     | '/signaler'
     | '/statistiques'
     | '/tableau-de-bord'
+    | '/unite'
+    | '/unite/interventions'
+    | '/unite/signalements'
+    | '/unite/techniciens'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
@@ -197,6 +245,7 @@ export interface RootRouteChildren {
   SignalerRoute: typeof SignalerRoute
   StatistiquesRoute: typeof StatistiquesRoute
   TableauDeBordRoute: typeof TableauDeBordRoute
+  UniteRoute: typeof UniteRouteWithChildren
 }
 
 declare module '@tanstack/react-router' {
@@ -292,8 +341,50 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof TableauDeBordRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/unite': {
+      id: '/unite'
+      path: '/unite'
+      fullPath: '/unite'
+      preLoaderRoute: typeof UniteRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/unite/interventions': {
+      id: '/unite/interventions'
+      path: '/interventions'
+      fullPath: '/unite/interventions'
+      preLoaderRoute: typeof UniteInterventionsRouteImport
+      parentRoute: typeof UniteRoute
+    }
+    '/unite/signalements': {
+      id: '/unite/signalements'
+      path: '/signalements'
+      fullPath: '/unite/signalements'
+      preLoaderRoute: typeof UniteSignalementsRouteImport
+      parentRoute: typeof UniteRoute
+    }
+    '/unite/techniciens': {
+      id: '/unite/techniciens'
+      path: '/techniciens'
+      fullPath: '/unite/techniciens'
+      preLoaderRoute: typeof UniteTechniciensRouteImport
+      parentRoute: typeof UniteRoute
+    }
   }
 }
+
+interface UniteRouteChildren {
+  UniteInterventionsRoute: typeof UniteInterventionsRoute
+  UniteSignalementsRoute: typeof UniteSignalementsRoute
+  UniteTechniciensRoute: typeof UniteTechniciensRoute
+}
+
+const UniteRouteChildren: UniteRouteChildren = {
+  UniteInterventionsRoute: UniteInterventionsRoute,
+  UniteSignalementsRoute: UniteSignalementsRoute,
+  UniteTechniciensRoute: UniteTechniciensRoute,
+}
+
+const UniteRouteWithChildren = UniteRoute._addFileChildren(UniteRouteChildren)
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
@@ -309,6 +400,7 @@ const rootRouteChildren: RootRouteChildren = {
   SignalerRoute: SignalerRoute,
   StatistiquesRoute: StatistiquesRoute,
   TableauDeBordRoute: TableauDeBordRoute,
+  UniteRoute: UniteRouteWithChildren,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
