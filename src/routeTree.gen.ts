@@ -23,6 +23,7 @@ import { Route as SignalerRouteImport } from './routes/signaler'
 import { Route as StatistiquesRouteImport } from './routes/statistiques'
 import { Route as TableauDeBordRouteImport } from './routes/tableau-de-bord'
 import { Route as UniteRouteImport } from './routes/unite'
+import { Route as UniteHistoriqueRouteImport } from './routes/unite.historique'
 import { Route as UniteInterventionsRouteImport } from './routes/unite.interventions'
 import { Route as UniteSignalementsRouteImport } from './routes/unite.signalements'
 import { Route as UniteTechniciensRouteImport } from './routes/unite.techniciens'
@@ -97,6 +98,11 @@ const UniteRoute = UniteRouteImport.update({
   path: '/unite',
   getParentRoute: () => rootRouteImport,
 } as any)
+const UniteHistoriqueRoute = UniteHistoriqueRouteImport.update({
+  id: '/historique',
+  path: '/historique',
+  getParentRoute: () => UniteRoute,
+} as any)
 const UniteInterventionsRoute = UniteInterventionsRouteImport.update({
   id: '/interventions',
   path: '/interventions',
@@ -128,6 +134,7 @@ export interface FileRoutesByFullPath {
   '/statistiques': typeof StatistiquesRoute
   '/tableau-de-bord': typeof TableauDeBordRoute
   '/unite': typeof UniteRouteWithChildren
+  '/unite/historique': typeof UniteHistoriqueRoute
   '/unite/interventions': typeof UniteInterventionsRoute
   '/unite/signalements': typeof UniteSignalementsRoute
   '/unite/techniciens': typeof UniteTechniciensRoute
@@ -147,6 +154,7 @@ export interface FileRoutesByTo {
   '/statistiques': typeof StatistiquesRoute
   '/tableau-de-bord': typeof TableauDeBordRoute
   '/unite': typeof UniteRouteWithChildren
+  '/unite/historique': typeof UniteHistoriqueRoute
   '/unite/interventions': typeof UniteInterventionsRoute
   '/unite/signalements': typeof UniteSignalementsRoute
   '/unite/techniciens': typeof UniteTechniciensRoute
@@ -167,6 +175,7 @@ export interface FileRoutesById {
   '/statistiques': typeof StatistiquesRoute
   '/tableau-de-bord': typeof TableauDeBordRoute
   '/unite': typeof UniteRouteWithChildren
+  '/unite/historique': typeof UniteHistoriqueRoute
   '/unite/interventions': typeof UniteInterventionsRoute
   '/unite/signalements': typeof UniteSignalementsRoute
   '/unite/techniciens': typeof UniteTechniciensRoute
@@ -188,6 +197,7 @@ export interface FileRouteTypes {
     | '/statistiques'
     | '/tableau-de-bord'
     | '/unite'
+    | '/unite/historique'
     | '/unite/interventions'
     | '/unite/signalements'
     | '/unite/techniciens'
@@ -207,6 +217,7 @@ export interface FileRouteTypes {
     | '/statistiques'
     | '/tableau-de-bord'
     | '/unite'
+    | '/unite/historique'
     | '/unite/interventions'
     | '/unite/signalements'
     | '/unite/techniciens'
@@ -226,6 +237,7 @@ export interface FileRouteTypes {
     | '/statistiques'
     | '/tableau-de-bord'
     | '/unite'
+    | '/unite/historique'
     | '/unite/interventions'
     | '/unite/signalements'
     | '/unite/techniciens'
@@ -348,6 +360,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof UniteRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/unite/historique': {
+      id: '/unite/historique'
+      path: '/historique'
+      fullPath: '/unite/historique'
+      preLoaderRoute: typeof UniteHistoriqueRouteImport
+      parentRoute: typeof UniteRoute
+    }
     '/unite/interventions': {
       id: '/unite/interventions'
       path: '/interventions'
@@ -373,12 +392,14 @@ declare module '@tanstack/react-router' {
 }
 
 interface UniteRouteChildren {
+  UniteHistoriqueRoute: typeof UniteHistoriqueRoute
   UniteInterventionsRoute: typeof UniteInterventionsRoute
   UniteSignalementsRoute: typeof UniteSignalementsRoute
   UniteTechniciensRoute: typeof UniteTechniciensRoute
 }
 
 const UniteRouteChildren: UniteRouteChildren = {
+  UniteHistoriqueRoute: UniteHistoriqueRoute,
   UniteInterventionsRoute: UniteInterventionsRoute,
   UniteSignalementsRoute: UniteSignalementsRoute,
   UniteTechniciensRoute: UniteTechniciensRoute,
