@@ -140,3 +140,23 @@ export function UnitTechniciansPage() {
     </article>)}</div>
   </>;
 }
+
+export function UnitWorkHistoryPage() {
+  const { interventions, history, reports } = useService();
+  const [filter, setFilter] = useState<'Terminée' | 'En cours' | ''>('Terminée');
+  const list = interventions.filter(i => !filter || i.status === filter);
+  return <>
+    <Heading eyebrow="HISTORIQUE DES TRAVAUX" title="Travaux réalisés et clôtures" description="Retrouvez chaque intervention avec ses actions, les retours des techniciens et les étapes enregistrées." />
+    <div className="tab-bar">{(['Terminée', 'En cours', ''] as const).map(s => <Button key={s} variant="ghost" className={filter === s ? 'tab-active' : ''} onClick={() => setFilter(s)}>{s === 'Terminée' ? 'Clôturées' : s || 'Toutes'} <span>{interventions.filter(i => !s || i.status === s).length}</span></Button>)}</div>
+    <section className="history-list">{list.map(i => { const r = reports.find(x => x.id === i.reportId); const steps = history.filter(h => h.reportId === i.reportId); return <article key={i.id}>
+      <span className={`timeline-icon ${i.status === 'Terminée' ? 'tone-green' : 'tone-blue'}`}>{i.status === 'Terminée' ? <BadgeCheck size={18} /> : <Wrench size={18} />}</span>
+      <div><div className="history-line"><h3>{i.id} · {i.location}</h3><time>{formatDate(i.date)}</time></div>
+        <span className="report-id">{i.reportId}{r ? ` · ${r.type}` : ''} · {i.zone}</span>
+        <p>Technicien : {i.team} · Avancement {i.progress}% · {i.status === 'Terminée' ? 'Travaux clôturés' : 'Travaux en cours'}</p>
+        {i.actions && <p>Actions : {i.actions}</p>}
+        {i.feedback && <p>Retour : {i.feedback}</p>}
+        {steps.map(h => <small key={h.id} style={{ display: 'block' }}>{formatDate(h.date)} — {h.action}{h.author ? ` · ${h.author}` : ''}{h.recipient ? ` → ${h.recipient}` : ''}{h.comment ? ` · ${h.comment}` : ''}</small>)}
+      </div></article>; })}
+      {!list.length && <div className="empty-state">Aucune intervention.</div>}</section>
+  </>;
+}
